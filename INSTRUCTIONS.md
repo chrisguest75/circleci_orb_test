@@ -20,5 +20,13 @@ The default template assumes `alpha` is tag it is looking for.
 git checkout -b publish_test   
 
 Commit message is detailed in default [README.md](./README.md)
-
 "My first rev of the orb [semver:0.0.1]"
+
+You have to edit the merge message.
+Note: Merge pull request #1 from chrisguest75/publish_test.
+
+git commit --amend   
+Merge pull request #1 from chrisguest75/publish_test [semver:patch]
+
+circleci orb list --uncertified | grep guest
+chrisguest75/circleci_orb_test (0.0.1)
