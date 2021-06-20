@@ -1,9 +1,18 @@
 version: 2.1
 
-description: >
-  Sample orb description
+description: circleci_orb_test description
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
+
+commands:
+ greet:
+     description: Greet someone with a "hello".
+     parameters:
+         to:
+             type: string
+             default: World
+     steps:
+         - run: echo "Hello, << parameters.to >>"
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:
