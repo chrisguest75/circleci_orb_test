@@ -5,20 +5,48 @@ description: circleci_orb_test description
 # Descriptions should be short, simple, and informative.
 
 commands:
- greet:
-     description: Greet someone with a "hello".
-     parameters:
-         to:
-             type: string
-             default: World
-     steps:
-         - run: echo "Hello, << parameters.to >>"
+  greet:
+    description: Greet someone with a "hello".
+    parameters:
+      to:
+        type: string
+        default: World
+    steps:
+      - run: echo "Hello, << parameters.to >>"
+
+  datadog_event:
+    description: Send events to datadog.
+    parameters:
+      datadog_api_key:
+        default: ${DATADOG_API_KEY}
+        description: Datadog API Key
+        type: string
+      environment:
+        default: production
+        description: Name of the environment where deployed to.
+        type: string
+    steps:
+      - run: echo "Hello, datadog_event"
+
+  deployment_slack:
+    description:   This command notifies a slack channel of a deployment success
+    parameters:
+      channel:
+        type: string
+        default: "#lighthouse-deploy"
+        description: "Channel to notify"
+      environment:
+          default: production
+          description: Name of the environment where deployed to.
+          type: string      
+    steps:
+      - run: echo "Hello, deployment_slack"
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:
-  home_url: "https://www.website.com/docs"
-  source_url: "https://www.github.com/EXAMPLE_ORG/EXAMPLE_PROJECT"
+  home_url: "https://github.com/chrisguest75/circleci_orb_test"
+  source_url: "https://github.com/chrisguest75/circleci_orb_test"
 
 # If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
-# orbs:
-#  hello: circleci/hello-build@0.0.5
+orbs:
+  slack: circleci/slack@4.1

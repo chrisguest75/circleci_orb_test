@@ -1,0 +1,35 @@
+description: Send a datadog event
+parameters:
+    datadog_api_key:
+        default: ${DATADOG_API_KEY}
+        description: Datadog API Key
+        type: string
+    environment:
+        default: production
+        description: Name of the environment where deployed to.
+        type: string
+steps:
+    - run:
+        command: |
+            curl  -X POST -H "Content-type: application/json" --data \
+              "{
+                \"title\": \"Deployment\",
+                \"text\": \"New deployment for $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME in <<parameters.environment>> environment. See more information here: $CIRCLE_BUILD_URL\",
+                \"priority\": \"normal\",
+                \"alert_type\": \"success\",
+                \"source_type_name\": \"circleci\",
+                \"aggregation_key\": \"circleci_deploys\",
+                \"tags\": [
+                  \"environment:<<parameters.environment>>\",
+                  \"repository:$CIRCLE_PROJECT_REPONAME\",
+                  \"organization:$CIRCLE_PROJECT_USERNAME\",
+                  \"branch:$CIRCLE_BRANCH\",
+                  \"build_num:$CIRCLE_BUILD_NUM\",
+                  \"job:$CIRCLE_JOB\",
+                  \"started_by:$CIRCLE_USERNAME\"
+                ]
+              }" "https://api.datadoghq.com/api/v1/events?api_key=<<parameters.datadog_api_key>>"
+        name: Datadog - Sending Deploy Event
+        when: on_success
+description: Send events to datadog.
+
