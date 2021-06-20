@@ -31,5 +31,4 @@ steps:
               }" "https://api.datadoghq.com/api/v1/events?api_key=<<parameters.datadog_api_key>>"
         name: Datadog - Sending Deploy Event
         when: on_success
-description: Send events to datadog.
 
