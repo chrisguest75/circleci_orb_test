@@ -13,3 +13,12 @@ circleci orb create chrisguest75/circleci_orb_test
 circleci orb init circleci_orb_test  
 circleci orb validate src/@orb.yml
 circleci orb publish src/@orb.yml chrisguest75/circleci_orb_test@dev:first
+
+
+The default template assumes `alpha` is tag it is looking for. 
+
+git checkout -b publish_test   
+
+Commit message is detailed in default [README.md](./README.md)
+
+"My first rev of the orb [semver:0.0.1]"
